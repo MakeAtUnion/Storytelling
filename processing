@@ -1,0 +1,37 @@
+import processing.serial.*;
+
+Serial myPort;    // The serial port
+String inString;  // Input string from serial port
+int lf = 10;      // ASCII linefeed
+
+void setup() {
+  size(1200,700);
+  // List all the available serial ports:
+  printArray(Serial.list());
+  // Open the port you are using at the rate you want:
+  myPort = new Serial(this, Serial.list()[2], 9600);
+  myPort.bufferUntil(lf);
+}
+
+void draw() {
+  background(255);
+  text("We were the people who were not in the papers.", 10,50); 
+  fill(0);
+  text("We lived in the blank white spaces at the edges of print.", 10,100);
+ 
+  textSize(36);
+  int number = int(inString);
+  int num2 = int(trim(inString));
+  println(num2);
+  if (num2 == 1) {
+  fill(255);
+  } else {
+    fill(0);
+  }
+   text("It gave us more freedom. We lived in the gaps between the stories.", 10,150);
+   fill(0);
+}
+
+void serialEvent(Serial p) {
+  inString = p.readString();
+}
